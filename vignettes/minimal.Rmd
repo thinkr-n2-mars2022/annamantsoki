@@ -25,9 +25,13 @@ library(annamantsoki)
 -->
 
 
-# My function
+# bmi
 
-```{r examples-my_fun}
-my_fun()
+```{r examples-bmi}
+bmi(mass = 80, height = 1.80)
+library(dplyr)
+data("data_weight")
+data_weight %>%
+  mutate(bmi = bmi(mass = mass, height = height))
 ```
 
