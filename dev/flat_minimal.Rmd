@@ -10,6 +10,7 @@ library(testthat)
 library(dplyr)
 library(tidyverse)
 library(datasets)
+library(readxl)
 
 usethis::use_data_raw()
 
@@ -21,15 +22,22 @@ usethis::use_r("data_weight")
 dir.create(here::here("inst"))
 write_csv(x = data_weight, "inst/data_weight.csv")
 
-mass/(height * height)
-
+# First function
 bmi <- function(mass = 80, height = 1.80){
  bmi = mass/(height * height)
  return(bmi)
 }
 
+# Second function
 
+safe_read_excel <- safely(read_excel)
 
+multi_import_excel <- function(file = "inst/corrupted_toydatasets.xlsx"){
+  sheets <- excel_sheets(file)
+  l <- map(sheets, safe_read_excel, path = file)
+  names(l) <- sheets
+  return(l)
+}
 
 ```
 
@@ -67,6 +75,69 @@ test_that("bmi works", {
 expect_true(is.numeric(bmi(mass = 80, height = 1.80)))
 })
 ```
+
+
+# safe_read_excel
+```{r function-safe_read_excel}
+#' bmi A function to read safely an excel file 
+#' @param file  the name or pathfile of the excel file (type = character)
+#' @param ...
+#' @return A data frame or NULL in case of corruption
+#' @importFrom purrr safely
+#' @importFrom readxl read_excel 
+#' @export
+
+safe_read_excel <- safely(read_excel) 
+
+```
+
+```{r examples-safe_read_excel}
+file <- system.file("corrupted_toydatasets.xlsx", package = "annamantsoki")
+safe_read_excel(file, sheet = "iris")
+```
+
+```{r tests-safe_read_excel}
+file <- system.file("corrupted_toydatasets.xlsx", package = "annamantsoki")
+test_that("safe_read_excel works", {
+  expect_type(safe_read_excel(file, sheet = "iris"), type = "list")
+})
+```
+
+
+
+# multi_import_excel
+
+```{r function-multi_import_excel}
+#' bmi A function to read all available tabs from an excel file 
+#' @param file  the name or pathfile of the excel file (type = character)
+#' @param ...
+#' @return A list of data frames named after the excel tabs
+#' @importFrom purrr safely map
+#' @importFrom readxl read_excel excel_sheets
+#' @export
+
+multi_import_excel <- function(file = "inst/corrupted_toydatasets.xlsx"){
+  sheets <- excel_sheets(file)
+  l <- map(sheets, safe_read_excel, path = file)
+  names(l) <- sheets
+  return(l)
+}
+
+```
+
+```{r examples-multi_import_excel}
+file <- system.file("corrupted_toydatasets.xlsx", package = "annamantsoki")
+multi_import_excel(file)
+
+```
+
+```{r tests-multi_import_excel}
+file <- system.file("corrupted_toydatasets.xlsx", package = "annamantsoki")
+test_that("multi_import_excel works", {
+  expect_type(multi_import_excel(file), type = "list")
+})
+```
+
 
 
 ```{r development-inflate, eval=FALSE}
