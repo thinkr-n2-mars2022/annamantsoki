@@ -35,3 +35,18 @@ data_weight %>%
   mutate(bmi = bmi(mass = mass, height = height))
 ```
 
+# safe_read_excel
+
+```{r examples-safe_read_excel}
+file <- system.file("corrupted_toydatasets.xlsx", package = "annamantsoki")
+safe_read_excel(file, sheet = "iris")
+```
+
+# multi_import_excel
+
+```{r examples-multi_import_excel}
+file <- system.file("corrupted_toydatasets.xlsx", package = "annamantsoki")
+multi_import_excel(file)
+
+```
+

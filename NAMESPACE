@@ -2,5 +2,10 @@
 
 export("%>%")
 export(bmi)
-export(my_fun)
+export(multi_import_excel)
+export(safe_read_excel)
 importFrom(magrittr,"%>%")
+importFrom(purrr,map)
+importFrom(purrr,safely)
+importFrom(readxl,excel_sheets)
+importFrom(readxl,read_excel)
