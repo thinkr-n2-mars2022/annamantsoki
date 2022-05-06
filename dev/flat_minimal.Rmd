@@ -6,7 +6,23 @@ editor_options:
 ---
 
 ```{r development, include=FALSE}
-library(testthat)
+# library(testthat)
+# library(dplyr)
+# library(tidyverse)
+# library(datasets)
+# 
+# usethis::use_data_raw()
+# 
+# data_weight <- readr::read_csv2("data-raw/data_weight.csv")
+# 
+# usethis::use_data(data_weight, overwrite = TRUE)
+# usethis::use_r("data_weight")
+# 
+# dir.create(here::here("inst"))
+# write_csv(x = data_weight, "inst/data_weight.csv")
+
+
+
 ```
 
 <!--

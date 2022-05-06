@@ -3,3 +3,7 @@
 ^LICENSE\.md$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^data-raw$
+^annamantsoki\.Rproj$
+^README\.Rmd$
+^CODE_OF_CONDUCT\.md$
