@@ -40,9 +40,12 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/my_fun.html</loc>
+    <loc>/reference/multi_import_excel.html</loc>
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/safe_read_excel.html</loc>
   </url>
 </urlset>
